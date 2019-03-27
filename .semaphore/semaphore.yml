@@ -16,7 +16,6 @@ blocks:
         - name: Dependencies
           commands:
             - lein with-profile +test,+project/dev,+project/test deps
-            - cache clear
             - cache store lein-deps-$(checksum project.clj) .m2
   - name: "Tests"
     task:
