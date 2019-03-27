@@ -10,7 +10,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
       jobs:
         - name: Dependencies
@@ -22,7 +22,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
       jobs:
         - name: Clojure tests
@@ -33,7 +33,7 @@ blocks:
       prologue:
         commands:
           - checkout
-          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
       jobs:
         - name: Uberjar build
