@@ -10,16 +10,19 @@ blocks:
       jobs:
         - name: Dependencies
           commands:
+            - checkout
             - lein deps
   - name: "Tests"
     task:
       jobs:
         - name: Clojure tests
           commands:
+            - checkout
             - lein test
   - name: "Build"
     task:
       jobs:
       - name: Uberjar build
         commands:
+          - checkout
           - lein uberjar
