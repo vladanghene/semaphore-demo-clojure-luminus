@@ -5,28 +5,37 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: "Set up"
+  - name: "Setup"
     task:
+      prologue:
+        commands:
+          - checkout
+          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - cache restore lein-deps-$(checksum project.clj)
       jobs:
         - name: Dependencies
           commands:
-            - checkout
-            - cache restore lein-deps-$(checksum project.clj)
             - lein with-profile +test,+project/dev,+project/test deps
-            - cache store lein-deps-$(checksum project.clj) ~/.m2
+            - cache store lein-deps-$(checksum project.clj) .m2
   - name: "Tests"
     task:
+      prologue:
+        commands:
+          - checkout
+          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - cache restore lein-deps-$(checksum project.clj)
       jobs:
         - name: Clojure tests
           commands:
-            - checkout
-            - cache restore lein-deps-$(checksum project.clj)
             - lein test
   - name: "Build"
     task:
-      jobs:
-      - name: Uberjar build
+      prologue:
         commands:
           - checkout
+          - echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
-          - lein uberjar
+      jobs:
+        - name: Uberjar build
+          commands:
+            - lein uberjar
