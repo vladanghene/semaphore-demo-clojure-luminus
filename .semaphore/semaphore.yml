@@ -1,0 +1,25 @@
+version: v1.0
+name: Clojure+Semaphore example
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "Set up"
+    task:
+      jobs:
+        - name: Dependencies
+          commands:
+            - lein deps
+  - name: "Tests"
+    task:
+      jobs:
+        - name: Clojure tests
+          commands:
+            - lein test
+  - name: "Build"
+    task:
+      jobs:
+      - name: Uberjar build
+        commands:
+          - lein uberjar
