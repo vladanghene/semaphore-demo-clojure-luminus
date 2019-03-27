@@ -16,7 +16,7 @@ blocks:
       jobs:
         - name: Dependencies
           commands:
-            - lein with-profile +test,+project/dev,+project/test deps
+            - lein with-profile +dev,+test,+uberjar deps
             - cache store lein-deps-$(checksum project.clj) .m2
   - name: "Tests"
     task:
