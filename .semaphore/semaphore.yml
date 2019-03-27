@@ -11,13 +11,16 @@ blocks:
         - name: Dependencies
           commands:
             - checkout
-            - lein deps
+            - cache restore lein-deps-$(checksum project.clj)
+            - lein with-profile +test,+project/dev,+project/test deps
+            - cache store lein-deps-$(checksum project.clj) ~/.m2
   - name: "Tests"
     task:
       jobs:
         - name: Clojure tests
           commands:
             - checkout
+            - cache restore lein-deps-$(checksum project.clj)
             - lein test
   - name: "Build"
     task:
@@ -25,4 +28,5 @@ blocks:
       - name: Uberjar build
         commands:
           - checkout
+          - cache restore lein-deps-$(checksum project.clj)
           - lein uberjar
