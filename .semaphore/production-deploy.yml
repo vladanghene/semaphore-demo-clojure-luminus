@@ -8,6 +8,7 @@ blocks:
   - name: Deploy
     task:
       prologue:
+        commands:
           - cache restore uberjar-latest
       jobs:
         - name: Deploying
