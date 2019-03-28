@@ -39,3 +39,4 @@ blocks:
         - name: Uberjar build
           commands:
             - lein uberjar
+            - cache store uberjar-latest target/uberjar/guestbook.jar

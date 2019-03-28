@@ -1,0 +1,16 @@
+version: v1.0
+name: Deploy to production
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy
+    task:
+      prologue:
+          - cache restore uberjar-latest
+      jobs:
+        - name: Deploying
+          commands:
+            - echo 'Deploying to production!'
+            - ls -la target/uberjar/
