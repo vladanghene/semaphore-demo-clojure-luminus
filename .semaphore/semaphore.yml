@@ -40,3 +40,6 @@ blocks:
           commands:
             - lein uberjar
             - cache store uberjar-latest target/uberjar/guestbook.jar
+promotions:
+  - name: Production deploy
+    pipeline_file: production-deploy.yml
