@@ -10,20 +10,21 @@ blocks:
       prologue:
         commands:
           - checkout
-          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
+          - cache clear
           - cache restore lein-deps-$(checksum project.clj)
+          - mv home/semaphore/.m2 ~/.m2
       jobs:
         - name: Dependencies
           commands:
             - lein with-profile +dev,+test,+uberjar deps
-            - cache store lein-deps-$(checksum project.clj) .m2
+            - cache store lein-deps-$(checksum project.clj) ~/.m2
   - name: "Tests"
     task:
       prologue:
         commands:
           - checkout
-          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
+          - mv home/semaphore/.m2 ~/.m2
       jobs:
         - name: Clojure tests
           commands:
@@ -33,8 +34,8 @@ blocks:
       prologue:
         commands:
           - checkout
-          - mkdir -p ~/.lein && echo '{:user{:local-repo ".m2"}}' > ~/.lein/profiles.clj
           - cache restore lein-deps-$(checksum project.clj)
+          - mv home/semaphore/.m2 ~/.m2
       jobs:
         - name: Uberjar build
           commands:
