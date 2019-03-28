@@ -11,8 +11,8 @@ blocks:
         commands:
           - checkout
           - cache clear
-          - cache restore lein-deps-$(checksum project.clj)
-          - mv home/semaphore/.m2 ~/.m2
+          # - cache restore lein-deps-$(checksum project.clj)
+          # - mv home/semaphore/.m2 ~/.m2
       jobs:
         - name: Dependencies
           commands:
