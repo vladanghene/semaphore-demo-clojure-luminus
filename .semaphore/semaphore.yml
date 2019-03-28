@@ -15,14 +15,11 @@ blocks:
           - cache restore lein-$(checksum `which lein`)
           - mv home/semaphore/.lein ~/.lein 2>/dev/null || true
       jobs:
-        - name: Leiningen installation
-          commands:
-            - lein
-            - cache store lein-$(checksum `which lein`) ~/.lein
         - name: Dependencies
           commands:
             - lein with-profile +dev,+test,+uberjar deps
             - cache store lein-deps-$(checksum project.clj) ~/.m2
+            - cache store lein-$(checksum `which lein`) ~/.lein
   - name: "Tests"
     task:
       prologue:
