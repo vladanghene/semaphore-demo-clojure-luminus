@@ -39,6 +39,7 @@ blocks:
         - name: Uberjar build
           commands:
             - lein uberjar
+            - cache delete uberjar-latest
             - cache store uberjar-latest target/uberjar/guestbook.jar
 promotions:
   - name: Production deploy
