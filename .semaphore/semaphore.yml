@@ -12,7 +12,13 @@ blocks:
           - checkout
           - cache restore lein-deps-$(checksum project.clj)
           - mv home/semaphore/.m2 ~/.m2 2>/dev/null || true
+          - cache restore lein-$(checksum `which lein`)
+          - mv home/semaphore/.lein ~/.lein 2>/dev/null || true
       jobs:
+        - name: Leiningen installation
+          commands:
+            - lein
+            - cache store lein-$(checksum `which lein`) ~/.lein
         - name: Dependencies
           commands:
             - lein with-profile +dev,+test,+uberjar deps
@@ -24,6 +30,8 @@ blocks:
           - checkout
           - cache restore lein-deps-$(checksum project.clj)
           - mv home/semaphore/.m2 ~/.m2
+          - cache restore lein-$(checksum `which lein`)
+          - mv home/semaphore/.lein ~/.lein 2>/dev/null || true
       jobs:
         - name: Clojure tests
           commands:
@@ -35,6 +43,8 @@ blocks:
           - checkout
           - cache restore lein-deps-$(checksum project.clj)
           - mv home/semaphore/.m2 ~/.m2
+          - cache restore lein-$(checksum `which lein`)
+          - mv home/semaphore/.lein ~/.lein 2>/dev/null || true
       jobs:
         - name: Uberjar build
           commands:
