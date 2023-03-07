@@ -81,7 +81,7 @@ A default route group is added to handle the `404`, `405`, and `406` errors.
 
 #### Managing your middleware
 
-Request middleware functions are located under the `guestbook.middleware` namespace.
+Request s middleware functions are located under the `guestbook.middleware` namespace.
 
 This namespace is reserved for any custom middleware for the application. Some default middleware is
 already defined here. The middleware is assembled in the `wrap-base` function.
